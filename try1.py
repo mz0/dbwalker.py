@@ -12,11 +12,12 @@ cnx = mysql.connector.connect(user=dbu, password=dbp, host=dbh, database=db1)
 
 cursor = cnx.cursor()
 
-query = ("SELECT COLUMN_NAME, COLUMN_TYPE"
-" FROM INFORMATION_SCHEMA.COLUMNS"
-" WHERE TABLE_NAME = %s AND TABLE_SCHEMA=%s"
-" ORDER BY ORDINAL_POSITION"
-)
+query = '''
+SELECT COLUMN_NAME, COLUMN_TYPE
+FROM INFORMATION_SCHEMA.COLUMNS
+WHERE TABLE_NAME = %s AND TABLE_SCHEMA = %s
+ORDER BY ORDINAL_POSITION
+'''
 
 cursor.execute(query, ('data_warehouse_conformance', db1))
 
