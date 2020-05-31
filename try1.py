@@ -3,26 +3,25 @@
 # pip3 install --user mysql-connector-python
 import mysql.connector
 
-dbh='127.0.0.1'
-db1='oxanasm6_navigat'
+dbh='127.0.0.1' # 10.44.68.150
+db1='shsha'
 dbu='shshaG'
-dbp='GSp974ax'
+dbp='999'
 
 cnx = mysql.connector.connect(user=dbu, password=dbp, host=dbh, database=db1)
 
 cursor = cnx.cursor()
 
-query = ("SELECT first_name, last_name, hire_date FROM employees "
-         "WHERE hire_date BETWEEN %s AND %s")
+query = ("SELECT COLUMN_NAME, COLUMN_TYPE"
+" FROM INFORMATION_SCHEMA.COLUMNS"
+" WHERE TABLE_NAME = %s AND TABLE_SCHEMA=%s"
+" ORDER BY ORDINAL_POSITION"
+)
 
-hire_start = datetime.date(1999, 1, 1)
-hire_end = datetime.date(1999, 12, 31)
+cursor.execute(query, ('data_warehouse_conformance', db1))
 
-cursor.execute(query, (hire_start, hire_end))
-
-for (first_name, last_name, hire_date) in cursor:
-  print("{}, {} was hired on {:%d %b %Y}".format(
-    last_name, first_name, hire_date))
+for (fld1, fld2) in cursor:
+  print(f'{fld1}  {fld2}')
 
 cursor.close()
 cnx.close()
