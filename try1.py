@@ -3,8 +3,10 @@
 # pip3 install --user mysql-connector-python
 import mysql.connector
 
-dbh = '127.0.0.1'  # 10.44.68.150
+dbh = '127.0.0.1'
+# dbh = '10.44.68.150'
 db1 = 'shsha'
+# db1 = 'shsha_Green'
 dbu = 'shshaG'
 dbp = '999'
 
