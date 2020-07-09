@@ -1,4 +1,5 @@
 import mysql.connector
+import time
 
 dbh = '127.0.0.1'
 db1 = 'shsha'
@@ -23,4 +24,12 @@ cursor.execute(count_approx)
 for (table, rows) in cursor:
     tabs1.append(table)
 
-print(tabs1)
+count = 'SELECT COUNT(*) FROM '
+for table in tabs1:
+    start = time.time()
+    cursor.execute(count+'`'+db1+'`.`'+table+'`')
+    end = time.time()
+    if cursor.lastrowid != 0: print("last rowId: ", cursor.lastrowid)
+    cnt = 0;
+    (cnt,) = cursor.fetchone()
+    print(f'{table} {cnt} rows, counted in {end-start:04.2f}s')
