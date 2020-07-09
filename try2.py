@@ -1,7 +1,7 @@
 import mysql.connector
 
 dbh = '127.0.0.1'
-db1 = 'shsha_Green'
+db1 = 'shsha'
 dbu = 'shsha'
 dbp = '999'
 

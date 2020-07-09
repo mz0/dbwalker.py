@@ -3,25 +3,34 @@
 # pip3 install --user mysql-connector-python
 # https://dev.mysql.com/doc/connector-python/en/connector-python-example-cursor-select.html
 import mysql.connector
+from sys import exit
+try:
+    from shsha_env import shsha_dynDB, shsha_dbuser, shsha_dbpassw
+except SyntaxError:
+    print("Error reading shsha_env.py file. Are there quotes around each value?")
+    exit(1)
+except ImportError:
+    print("File shsha_env.py is missing,"
+          " or one of shsha_dynDB, shsha_dbuser, shsha_dbpassw lines is not there,"
+          " or some variable name is misspelled in that file.")
+    exit(2)
 
 dbh = '127.0.0.1'
-db1 = 'shsha_Blue'
-dbu = 'shsha'
-dbp = '999'
+db1 = shsha_dynDB
+dbu = shsha_dbuser
+dbp = shsha_dbpassw
 
 cnx = mysql.connector.connect(user=dbu, password=dbp, host=dbh, database=db1)
 
 cursor = cnx.cursor()
 
-desc = '''
-SELECT COLUMN_NAME, COLUMN_TYPE
-FROM INFORMATION_SCHEMA.COLUMNS
-WHERE TABLE_NAME = %s AND TABLE_SCHEMA = %s
-ORDER BY ORDINAL_POSITION
-'''
-
-tbl_conform_results = 'data_warehouse_conformance'
-
+#desc = '''
+#SELECT COLUMN_NAME, COLUMN_TYPE
+#FROM INFORMATION_SCHEMA.COLUMNS
+#WHERE TABLE_NAME = %s AND TABLE_SCHEMA = %s
+#ORDER BY ORDINAL_POSITION
+#'''
+#tbl_conform_results = 'data_warehouse_conformance'
 # cursor.execute(desc, (tbl_conform_results, db1))
 # for (fld1, fld2) in cursor: print(f'{fld1}  {fld2}')
 
