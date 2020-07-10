@@ -29,7 +29,7 @@ class CountComparator:
     def has_diffs(self):
         return False if self.count1 == self.count2 else True
 
-    explain = 'count1, time1, count2, time2 (if > 0.001)'
+    explain = 'count1, count2, time2 (if > 0.001)'
     def __str__(self):
         # d1 = self.count1 - self.count2
         time2 = f'{self.time2:.3f}' if self.time2 > 0.001 else '0'
